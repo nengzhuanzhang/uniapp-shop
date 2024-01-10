@@ -8,3 +8,12 @@ export type BannerItem = {
   imgUrl: string
   type: number
 }
+
+/**
+ * 首页-分类
+ */
+export type CategoryItem = {
+  icon: string
+  id: string
+  name: string
+}
