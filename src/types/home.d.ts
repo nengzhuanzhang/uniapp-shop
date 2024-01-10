@@ -17,3 +17,15 @@ export type CategoryItem = {
   id: string
   name: string
 }
+
+/**
+ * 首页-热门推荐
+ */
+export type HotItem = {
+  alt: string
+  id: string
+  pictures: string[]
+  target: string
+  title: string
+  type: string
+}
