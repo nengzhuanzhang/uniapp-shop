@@ -19,9 +19,9 @@
 </template>
 
 <script lang="ts" setup>
-// import type { HotItem } from '@/types/home'
+import type { HotItem } from '@/types/home'
 
-defineProps<{ list }>()
+defineProps<{ list: HotItem[] }>()
 </script>
 
 <style lang="scss" scoped>

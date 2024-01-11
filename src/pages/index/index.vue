@@ -1,22 +1,34 @@
 <template>
   <!-- navbar -->
   <CustomNavbar />
-  <!-- swiper -->
-  <MpSwiper :list="bannerList" />
-  <!-- categoryPanel -->
-  <CategoryPanel :list="categoryList"></CategoryPanel>
-  <!-- hotPanel -->
-  <HotPanel :list="hotList"></HotPanel>
+  <scroll-view
+    refresher-enabled
+    @refresherrefresh="onRefresherrefresh"
+    @scrolltolower="onScrolltolower"
+    :refresher-triggered="isTriggered"
+    class="scroll-view"
+    scroll-y
+  >
+    <!-- swiper -->
+    <MpSwiper :list="bannerList" />
+    <!-- categoryPanel -->
+    <CategoryPanel :list="categoryList"></CategoryPanel>
+    <!-- hotPanel -->
+    <HotPanel :list="hotList"></HotPanel>
+    <!-- guess -->
+    <MpGuess ref="guessRef"></MpGuess>
+  </scroll-view>
 </template>
 
 <script setup lang="ts">
 import { getHomeBannerApi, getHomeCategoryApi, getHomeHotApi } from '@/services/home'
 import CustomNavbar from './components/CustomNavbar.vue'
-import CategoryPanel from './components/categoryPanel.vue'
-import HotPanel from './components/hotPanel.vue'
+import CategoryPanel from './components/CategoryPanel.vue'
+import HotPanel from './components/HotPanel.vue'
 import { onLoad } from '@dcloudio/uni-app'
 import { ref } from 'vue'
 import type { BannerItem, CategoryItem, HotItem } from '@/types/home'
+import type { MpGuessInstance } from '@/types/components'
 
 // 获取banner数据
 const bannerList = ref<BannerItem[]>([])
@@ -39,6 +51,28 @@ const getHomeHotData = async () => {
   hotList.value = res.result
 }
 
+// 滚动到底部
+const guessRef = ref<MpGuessInstance>()
+const onScrolltolower = () => {
+  guessRef.value?.getMore()
+}
+
+// 设置当前下拉刷新状态，true 表示下拉刷新已经被触发，false 表示下拉刷新未被触发
+const isTriggered = ref<boolean>(false)
+// 下拉刷新
+const onRefresherrefresh = async () => {
+  isTriggered.value = true
+  guessRef.value?.resetData()
+  await Promise.all([
+    getHomeBannerData(),
+    getHomeCategoryData(),
+    getHomeHotData(),
+    guessRef.value?.getMore(),
+  ])
+  isTriggered.value = false
+}
+
+// 页面加载
 onLoad(() => {
   getHomeBannerData()
   getHomeCategoryData()
@@ -48,8 +82,14 @@ onLoad(() => {
 
 <style lang="scss">
 page {
+  display: flex;
+  flex-direction: column;
   background-color: #f7f7f7;
   height: 100%;
+}
+
+.scroll-view {
+  flex: 1;
   overflow: hidden;
 }
 </style>
