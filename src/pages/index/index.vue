@@ -9,14 +9,19 @@
     class="scroll-view"
     scroll-y
   >
-    <!-- swiper -->
-    <MpSwiper :list="bannerList" />
-    <!-- categoryPanel -->
-    <CategoryPanel :list="categoryList"></CategoryPanel>
-    <!-- hotPanel -->
-    <HotPanel :list="hotList"></HotPanel>
-    <!-- guess -->
-    <MpGuess ref="guessRef"></MpGuess>
+    <!-- 骨架屏 -->
+    <PageSkeleton v-if="isLoading"></PageSkeleton>
+
+    <template>
+      <!-- swiper -->
+      <MpSwiper :list="bannerList" />
+      <!-- categoryPanel -->
+      <CategoryPanel :list="categoryList"></CategoryPanel>
+      <!-- hotPanel -->
+      <HotPanel :list="hotList"></HotPanel>
+      <!-- guess -->
+      <MpGuess ref="guessRef"></MpGuess>
+    </template>
   </scroll-view>
 </template>
 
@@ -24,6 +29,7 @@
 import { getHomeBannerApi, getHomeCategoryApi, getHomeHotApi } from '@/services/home'
 import CustomNavbar from './components/CustomNavbar.vue'
 import CategoryPanel from './components/CategoryPanel.vue'
+import PageSkeleton from './components/PageSkeleton.vue'
 import HotPanel from './components/HotPanel.vue'
 import { onLoad } from '@dcloudio/uni-app'
 import { ref } from 'vue'
@@ -73,10 +79,11 @@ const onRefresherrefresh = async () => {
 }
 
 // 页面加载
-onLoad(() => {
-  getHomeBannerData()
-  getHomeCategoryData()
-  getHomeHotData()
+const isLoading = ref<boolean>(false)
+onLoad(async () => {
+  isLoading.value = true
+  await Promise.all([getHomeBannerData(), getHomeCategoryData(), getHomeHotData()])
+  isLoading.value = false
 })
 </script>
 
