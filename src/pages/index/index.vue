@@ -12,7 +12,7 @@
     <!-- 骨架屏 -->
     <PageSkeleton v-if="isLoading"></PageSkeleton>
 
-    <template>
+    <template v-else>
       <!-- swiper -->
       <MpSwiper :list="bannerList" />
       <!-- categoryPanel -->

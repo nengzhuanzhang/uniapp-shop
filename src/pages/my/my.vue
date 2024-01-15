@@ -14,7 +14,6 @@ const getData = () => {
 <template>
   <view class="my">
     <view>111 </view>
-    <image src="" mode="aspectFill" />
     <view>会员信息：{{ memberStore.profile }}</view>
     <button
       @tap="
