@@ -25,16 +25,5 @@ console.log(props)
 </script>
 
 <style lang="scss">
-.carousel {
-  height: 280rpx;
-  position: relative;
-  overflow: hidden;
-  transform: translateY(0);
-  background-color: #efefef;
-  .navigator,
-  .image {
-    width: 100%;
-    height: 100%;
-  }
-}
+@import './styles/mpSwiper.scss';
 </style>

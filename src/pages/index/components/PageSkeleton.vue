@@ -196,7 +196,15 @@
   </view>
 </template>
 
-<style>
+<style lang="scss">
+// H5、App端默认开启scoped样式隔离，导致组件基础样式无效
+/* #ifdef H5 || APP-PLUS */
+@import '../styles/categoryPanel.scss';
+@import '../styles/hotPanel.scss';
+@import '@/components/styles/mpGuess.scss';
+@import '@/components/styles/mpSwiper.scss';
+/* #endif */
+
 .sk-transparent {
   color: transparent !important;
 }
