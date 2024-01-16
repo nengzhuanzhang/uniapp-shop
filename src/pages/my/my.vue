@@ -9,6 +9,10 @@ const getData = () => {
     url: '/home/banner',
   })
 }
+
+const jumpLogin = () => {
+  uni.navigateTo({ url: `/pages/login/login` })
+}
 </script>
 
 <template>
@@ -29,6 +33,7 @@ const getData = () => {
     </button>
     <button @tap="memberStore.clearProfile()" size="mini" plain type="warn">清理用户信息</button>
     <button @tap="getData" size="mini" plain type="warn">测试请求</button>
+    <button @tap="jumpLogin" type="primary">登录</button>
   </view>
 </template>
 
