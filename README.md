@@ -33,7 +33,7 @@ npm run dev:h5
 
 ### 工程结构解析
 
-```
+``` bash
 ├── .husky                     # Git Hooks
 ├── .vscode                    # VS Code 插件 + 设置
 ├── dist                       # 打包文件夹（可删除重新打包）
@@ -46,7 +46,7 @@ npm run dev:h5
 │       ├── my                  # 我的
 │       └── login               # 登录页
 │   ├── services               # 所有请求
-│   ├── static                 # 存放应用引用的本地静态资源的目录
+│   ├── static                 # 存放应用引用的本地静态资源的目录(ps:静态资源只能存放于此)
 │       ├── images              # 普通图片
 │       └── tabs                # tabBar 图片
 │   ├── stores                 # 全局 pinia store
@@ -59,8 +59,8 @@ npm run dev:h5
 │   ├── utils                  # 全局方法
 │   ├── App.vue                # 入口页面
 │   ├── main.ts                # Vue初始化入口文件
-│   ├── pages.json             # 配置页面路由等页面类信息
-│   ├── manifest.json          # 配置appid等打包信息
+│   ├── pages.json             # 配置页面路由、导航条、选项卡等页面类信息
+│   ├── manifest.json          # 配置应用名称、appid、logo、版本等打包信息
 │   └── uni.scss               # uni-app 内置的常用样式变量
 ├── .editorconfig              # editorconfig 配置
 ├── .eslintrc.cjs              # eslint 配置
