@@ -12,3 +12,14 @@ export type PageParams = {
   page?: number
   pageSize?: number
 }
+
+/** 通用商品类型 */
+export type GoodsItem = {
+  desc: string
+  discount: number
+  id: string
+  name: string
+  orderNum: number
+  picture: string
+  price: number
+}
