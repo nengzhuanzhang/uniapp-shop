@@ -10,7 +10,7 @@
         </view>
       </view>
       <view class="categories categories data-v-4046d630 data-v-4046d630">
-        <scroll-view scroll-y="true" class="primary primary data-v-4046d630 data-v-4046d630">
+        <scroll-view :scroll-y="true" class="primary primary data-v-4046d630 data-v-4046d630">
           <view class="item data-v-4046d630 sk-pseudo sk-pseudo-circle">
             <text class="name data-v-4046d630 sk-transparent sk-text-14-2857-789 sk-text"
               >居家</text
@@ -55,17 +55,17 @@
             <text class="name data-v-4046d630 sk-transparent sk-text-14-2857-53 sk-text">杂项</text>
           </view>
         </scroll-view>
-        <scroll-view scroll-y="true" class="secondary secondary data-v-4046d630 data-v-4046d630">
+        <scroll-view :scroll-y="true" class="secondary secondary data-v-4046d630 data-v-4046d630">
           <view is="components/MpSwiper" class="banner banner data-v-4046d630 data-v-4046d630">
             <view class="carousel MpSwiper--carousel">
               <swiper
-                autoplay="false"
-                circular="true"
+                :autoplay="false"
+                :circular="true"
                 indicator-active-color="#fff"
                 indicator-color="rgba(255, 255, 255, 0.4)"
-                indicator-dots="true"
-                interval="3000"
-                current="0"
+                :indicator-dots="true"
+                :interval="3000"
+                :current="0"
               ></swiper>
             </view>
           </view>
