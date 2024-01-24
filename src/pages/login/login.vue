@@ -15,17 +15,63 @@
 
       <!-- 小程序端授权登录 -->
       <!-- #ifdef MP-WEIXIN -->
-      <button class="button phone">
+      <button class="button phone" open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber">
         <text class="icon icon-phone"></text>
         手机号快捷登录
       </button>
       <!-- #endif -->
+
+      <view class="extra">
+        <view class="caption">
+          <text>其他登录方式</text>
+        </view>
+        <view class="options">
+          <!-- 通用模拟登录 -->
+          <button @tap="onGetPhoneNumberSimple">
+            <text class="icon icon-phone">模拟快捷登录</text>
+          </button>
+        </view>
+      </view>
+      <view class="tips">登录/注册即视为你同意《服务条款》和《小兔鲜儿隐私协议》</view>
     </view>
   </view>
 </template>
 
 <script setup lang="ts">
-//
+import { postLoginWxMinApi, postLoginWxMinSimpleApi } from '@/services/login'
+import { useMemberStore } from '@/stores/modules/member'
+import type { LoginResult } from '@/types/member'
+import { onLoad } from '@dcloudio/uni-app'
+
+// 获取code凭证
+let code = ''
+onLoad(async () => {
+  const res = await wx.login()
+  code = res.code
+})
+
+// TODO 获取用户手机号码: 该功能对个人开发者不开发
+const onGetPhoneNumber: UniHelper.ButtonOnGetphonenumber = async (ev) => {
+  const { encryptedData, iv } = ev.detail
+  const res = await postLoginWxMinApi({ code, encryptedData, iv })
+  loginSuccess(res.result)
+}
+
+// 模拟登录
+const onGetPhoneNumberSimple = async () => {
+  const res = await postLoginWxMinSimpleApi('18358332834')
+  loginSuccess(res.result)
+}
+
+const loginSuccess = (profile: LoginResult) => {
+  const memberStore = useMemberStore()
+  memberStore.setProfile(profile)
+  uni.showToast({ icon: 'success', title: '登录成功' })
+  // 跳转到 tabBar 页面只能使用 switchTab 跳转
+  setTimeout(() => {
+    uni.switchTab({ url: '/pages/my/my' })
+  }, 500)
+}
 </script>
 
 <style lang="scss">
