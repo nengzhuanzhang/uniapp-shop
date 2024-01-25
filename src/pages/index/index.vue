@@ -34,7 +34,7 @@ import HotPanel from './components/HotPanel.vue'
 import { onLoad } from '@dcloudio/uni-app'
 import { ref } from 'vue'
 import type { BannerItem, CategoryItem, HotItem } from '@/types/home'
-import type { MpGuessInstance } from '@/types/components'
+import { useGuessList } from '@/composables'
 
 // 获取banner数据
 const bannerList = ref<BannerItem[]>([])
@@ -57,11 +57,8 @@ const getHomeHotData = async () => {
   hotList.value = res.result
 }
 
-// 滚动到底部
-const guessRef = ref<MpGuessInstance>()
-const onScrolltolower = () => {
-  guessRef.value?.getMore()
-}
+// 滚动到底部,调用组合式函数
+const { guessRef, onScrolltolower } = useGuessList()
 
 // 设置当前下拉刷新状态，true 表示下拉刷新已经被触发，false 表示下拉刷新未被触发
 const isTriggered = ref<boolean>(false)
