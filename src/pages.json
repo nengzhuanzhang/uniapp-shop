@@ -17,15 +17,15 @@
 			"path": "pages/index/index",
 			"style": {
 				"navigationStyle": "custom", //自定义导航，默认隐藏
-        "navigationBarTextStyle": "white",
+				"navigationBarTextStyle": "white",
 				"navigationBarTitleText": "首页"
 			}
 		},
 		{
 			"path": "pages/my/my",
 			"style": {
-        "navigationStyle": "custom",// 自定义导航
-        "navigationBarTextStyle": "white",
+				"navigationStyle": "custom", // 自定义导航
+				"navigationBarTextStyle": "white",
 				"navigationBarTitleText": "我的"
 			}
 		},
@@ -108,5 +108,26 @@
 				"query": "" //启动参数，在页面的onLoad函数里面得到
 			}
 		]
-	}
+	},
+  // 分包加载配置
+	"subPackages": [
+		{
+			"root": "pagesMember",
+			"pages": [
+				{
+					"path": "settings/settings",
+					"style": {
+						"navigationBarTitleText": "设置"
+					}
+				}
+			]
+		}
+	],
+  // 分包预下载规则
+  "preloadRule": {
+    "pages/my/my":{
+      "network": "all",
+      "packages": ["pagesMember"]
+    }
+  }
 }
