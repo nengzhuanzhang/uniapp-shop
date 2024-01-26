@@ -5,7 +5,7 @@ export type AddressParams = {
   cityCode: string
   countyCode: string
   address: string
-  isDefault: boolean
+  isDefault: number /** 默认地址，1为是，0为否 */
 }
 
 export type AddressItem = AddressParams & {
