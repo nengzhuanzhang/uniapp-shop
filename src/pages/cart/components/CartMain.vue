@@ -65,12 +65,19 @@
         </navigator>
       </view>
       <!-- 吸底工具栏 -->
-      <view class="toolbar">
+      <view
+        class="toolbar"
+        :style="{ paddingBottom: safeAreaInsetsBottom ? `${safeAreaInsets?.bottom}px` : 0 }"
+      >
         <text @tap="onChangeSelectedAll" class="all" :class="{ checked: isSelectedAll }">全选</text>
         <text class="text">合计:</text>
         <text class="amount">{{ selectedCartListMoney }}</text>
         <view class="button-grounp">
-          <view class="button payment-button" :class="{ disabled: selectedCartListCount === 0 }">
+          <view
+            @tap="goToPayment"
+            class="button payment-button"
+            :class="{ disabled: selectedCartListCount === 0 }"
+          >
             去结算({{ selectedCartListCount }})
           </view>
         </view>
@@ -103,6 +110,11 @@ import {
 import { onShow } from '@dcloudio/uni-app'
 import type { InputNumberBoxEvent } from '@/components/vk-data-input-number-box/vk-data-input-number-box'
 import { computed } from 'vue'
+
+// 是否适配底部安全距离
+defineProps<{ safeAreaInsetsBottom?: boolean }>()
+// 获取安全距离
+const { safeAreaInsets } = uni.getSystemInfoSync()
 
 // 登录状态
 const memberStore = useMemberStore()
@@ -179,6 +191,14 @@ const selectedCartListMoney = computed(() => {
 const selectedCartListCount = computed(() => {
   return selectedCartList.value.reduce((sum, item) => sum + item.count, 0)
 })
+
+// 结算按钮
+const goToPayment = () => {
+  if (selectedCartListCount.value === 0) {
+    return uni.showToast({ icon: 'none', title: '请选择商品' })
+  }
+  uni.navigateTo({ url: '/pagesOrder/create/create' })
+}
 </script>
 
 <style lang="scss">

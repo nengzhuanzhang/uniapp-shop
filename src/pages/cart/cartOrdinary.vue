@@ -1,5 +1,5 @@
 <template>
-  <CartMain></CartMain>
+  <CartMain safe-area-inset-bottom></CartMain>
 </template>
 
 <script setup lang="ts">
