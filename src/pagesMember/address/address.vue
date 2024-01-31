@@ -13,7 +13,7 @@
                 <text v-if="item.isDefault" class="badge">默认</text>
               </view>
               <view class="locate">{{ item.fullLocation }} {{ item.address }}</view>
-              <!-- H5 端需添加 .prevent 阻止链接的默认行为 -->
+              <!-- stop阻止冒泡；H5 端需添加 .prevent 阻止链接的默认行为 -->
               <navigator
                 class="edit"
                 hover-class="none"
