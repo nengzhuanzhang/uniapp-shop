@@ -18,7 +18,7 @@ export const postMemberAddressApi = (data: AddressParams) => {
  * @returns
  */
 export const getMemberAddressApi = () => {
-  return http<AddressItem>({
+  return http<AddressItem[]>({
     method: 'GET',
     url: '/member/address',
   })
