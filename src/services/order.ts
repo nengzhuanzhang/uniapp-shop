@@ -82,3 +82,25 @@ export const putMemberOrderReceiptByIdApi = (id: string) => {
     url: `/member/order/${id}/receipt`,
   })
 }
+
+/**
+ * 获取订单详情
+ * @param id 订单id
+ */
+export const getMemberOrderByIdApi = (id: string) => {
+  return http<OrderResult>({
+    method: 'GET',
+    url: `/member/order/${id}`,
+  })
+}
+
+/**
+ * 填写订单-再次购买
+ * @param id 订单id
+ */
+export const getMemberOrderRepurchaseByIdApi = (id: string) => {
+  return http<OrderPreResult>({
+    method: 'GET',
+    url: `/member/order/repurchase/${id}`,
+  })
+}

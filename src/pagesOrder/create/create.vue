@@ -86,7 +86,12 @@
   </view>
 </template>
 <script setup lang="ts">
-import { getMemberOrderPreApi, getMemberOrderPreNowApi, postMemberOrderApi } from '@/services/order'
+import {
+  getMemberOrderPreApi,
+  getMemberOrderPreNowApi,
+  postMemberOrderApi,
+  getMemberOrderRepurchaseByIdApi,
+} from '@/services/order'
 import { useAddressStore } from '@/stores/modules/address'
 import type { OrderCreateParams, OrderPreResult } from '@/types/order'
 import { onLoad } from '@dcloudio/uni-app'
@@ -125,12 +130,18 @@ const query = defineProps<{
 const orderPre = ref<OrderPreResult>()
 const getMemberOrderPreData = async () => {
   if (query.skuId && query.count) {
+    // 立即购买
     const res = await getMemberOrderPreNowApi({
       count: query.count,
       skuId: query.skuId,
     })
     orderPre.value = res.result
+  } else if (query.orderId) {
+    // 再次购买
+    const res = await getMemberOrderRepurchaseByIdApi(query.orderId)
+    orderPre.value = res.result
   } else {
+    // 购物车 提交订单
     const res = await getMemberOrderPreApi()
     orderPre.value = res.result
   }
