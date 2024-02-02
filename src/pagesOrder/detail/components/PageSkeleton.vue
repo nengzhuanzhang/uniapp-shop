@@ -9,7 +9,12 @@
         <view class="title sk-transparent sk-text-14-2857-160 sk-text">订单详情</view>
       </view>
     </view>
-    <scroll-view scroll-y="true" class="viewport viewport" id="scroller" enable-back-to-top="true">
+    <scroll-view
+      class="viewport viewport"
+      :scroll-y="true"
+      id="scroller"
+      :enable-back-to-top="true"
+    >
       <view class="overview sk-image" style="padding-top: 67px">
         <view class="status sk-transparent sk-text-0-0000-291 sk-text">已取消</view>
         <view class="button-group button-group">
